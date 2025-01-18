@@ -10,7 +10,7 @@
 | first_name         | string  | null: false |
 | last_name_kana     | string  | null: false |
 | first_name_kana    | string  | null: false |
-| birthday_id        | integer | null: false |
+| birthday           | data    | null: false |
 
 ### Association
 
@@ -27,7 +27,7 @@
 | price              | integer      | null: false |
 | shipping_fee_id    | integer      | null: false |
 | region_id          | integer      | null: false |
-| day_id             | integer      | null: false |
+| num_id             | integer      | null: false |
 | user               | references   | null: false, foreign_key: true |
 
 ### Association
@@ -38,9 +38,15 @@
 ## sells テーブル
 | Column             | Type         | Options     |
 | ------------------ | -------------| ----------- |
-| purchaser          | string       | null: false |
-| Shipping_address   | string       | null: false |
-| item               | references   | null: false, foreign_key: true |
+| card_information   | string       | null: false |
+| expiry             | string       | null: false |
+| code               | string       | null: false |
+| post_code          | string       | null: false |
+| prefectures        | string       | null: false |
+| municipality_id    | integer      | null: false |
+| street_address     | string       | null: false |
+| building           | string       | null: false |
+| telephone_number   | string       | null: false |
 | comment            | references   | null: false, foreign_key: true |
 
 ### Association

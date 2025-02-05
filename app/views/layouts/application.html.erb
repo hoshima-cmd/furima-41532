@@ -7,24 +7,11 @@
   <%= csrf_meta_tags %>
   <%= csp_meta_tag %>
   <%= stylesheet_link_tag "application", "data-turbo-track": "reload" %>
-  <link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/normalize/8.0.1/normalize.css">
   <%= javascript_importmap_tags %>
 </head>
 
-
-
 <body>
-  <% if user_signed_in? %>
-          <div class="user_nav grid-6">
-            <%= link_to "ログアウト", destroy_user_session_path, data: { turbo_method: :delete } %>
-          </div>
-        <% else %>
-          <div class="grid-6"> 
-            <%= link_to "ログイン", new_user_session_path, class: "post" %>
-            <%= link_to "新規登録", new_user_registration_path, class: "post" %>
-          </div>
-        <% end %>
+  <%= yield %>
 </body>
 
-  <%= yield %>
 </html>

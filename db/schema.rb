@@ -10,13 +10,28 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2025_01_26_155632) do
-  create_table "articles", charset: "utf8", force: :cascade do |t|
+ActiveRecord::Schema[7.0].define(version: 2025_02_08_014935) do
+  create_table "articles", charset: "utf8mb3", force: :cascade do |t|
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
   end
 
-  create_table "users", charset: "utf8", force: :cascade do |t|
+  create_table "items", charset: "utf8mb3", force: :cascade do |t|
+    t.string "product_name", null: false
+    t.text "explanation", null: false
+    t.integer "category_id", null: false
+    t.integer "state_id", null: false
+    t.integer "price", null: false
+    t.integer "shipping_fee_id", null: false
+    t.integer "region_id", null: false
+    t.integer "num_id", null: false
+    t.bigint "user_id", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["user_id"], name: "index_items_on_user_id"
+  end
+
+  create_table "users", charset: "utf8mb3", force: :cascade do |t|
     t.string "email", default: "", null: false
     t.string "encrypted_password", default: "", null: false
     t.string "reset_password_token"
@@ -24,14 +39,15 @@ ActiveRecord::Schema[7.0].define(version: 2025_01_26_155632) do
     t.datetime "remember_created_at"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.string "nickname", null: false
-    t.date "birthday", null: false
-    t.string "last_name", null: false
-    t.string "first_name", null: false
-    t.string "first_name_kana", null: false
-    t.string "Last_name_kana", null: false
+    t.string "nickname"
+    t.date "birthday"
+    t.string "last_name"
+    t.string "first_name"
+    t.string "first_name_kana"
+    t.string "Last_name_kana"
     t.index ["email"], name: "index_users_on_email", unique: true
     t.index ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true
   end
 
+  add_foreign_key "items", "users"
 end

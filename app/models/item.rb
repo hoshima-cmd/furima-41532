@@ -1,5 +1,6 @@
 class Item < ApplicationRecord
   belongs_to :user
+  has_one_attached :image
 
   validates :product_name, presence: true
   validates :explanation, presence: true
@@ -11,4 +12,5 @@ class Item < ApplicationRecord
   validates :num_id, presence: true
   
   def change
+  end
 end

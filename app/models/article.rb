@@ -1,10 +1,8 @@
 class CreateArticles < ActiveRecord::Migration[7.1]
-  def change
-    create_table :articles do |t|
-      t.string     :title, null: false
-      t.text       :text, null: false
-      t.integer    :genre_id, null: false
-      t.timestamps
-    end
-  end
+  extend ActiveHash::Associations::ActiveRecordExtensions
+  belongs_to :genre
+
+  validates :title, :text, presence: true
+  validates :genre_id, numericality: { other_than: 1 , message: "can't be blank"}
+
 end

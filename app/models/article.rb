@@ -1,4 +1,4 @@
-class CreateArticles < ActiveRecord::Migration[7.1]
+class Article < ApplicationRecord
   extend ActiveHash::Associations::ActiveRecordExtensions
   belongs_to :genre
 

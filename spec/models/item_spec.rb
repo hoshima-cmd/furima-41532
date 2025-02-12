@@ -1,12 +1,14 @@
 require 'rails_helper'
 
-RSpec.describe Item, type: :model do
+RSpec.describe '商品出品機能', type: :model do
   before do
-    user = FactoryBot.create(:user)
-    @item = FactoryBot.build(:item, user:)
+    @item = FactoryBot.build(:item)
   end
-
-  describe '新規登録' do
+  context '出品登録ができるとき' do
+    it '全ての入力事項が、あれば登録できる' do
+      expect(@item).to be_valid
+    end
+  end
     context '商品出品ができないとき' do
       it 'Userが紐づいていないと出品できない' do
         @item.user = nil
@@ -99,10 +101,4 @@ RSpec.describe Item, type: :model do
       expect(@item.errors.full_messages).to include("Image can't be blank")
     end
   end
-  context '出品登録ができるとき' do
-    it '全ての入力事項が、あれば登録できる' do
-      expect(@item).to be_valid
-    end
-  end
-end
 end

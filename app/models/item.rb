@@ -14,26 +14,23 @@ class Item < ApplicationRecord
   end
   belongs_to :user
   has_one_attached :image
-
-
-  extend ActiveHash::Associations::ActiveRecordExtensions
   belongs_to :num
-  validates :num_id, numericality: { other_than: 1, message: "can't be blank"} 
-
-  extend ActiveHash::Associations::ActiveRecordExtensions
   belongs_to :category
-  validates :category_id, numericality: { other_than: 1, message: "can't be blank" }   
-
-  extend ActiveHash::Associations::ActiveRecordExtensions
   belongs_to :region
-  validates :region_id, numericality: { other_than: 1, message: "can't be blank" } 
-
-  extend ActiveHash::Associations::ActiveRecordExtensions
   belongs_to :shipping_fee
-  validates :shipping_fee_id, numericality: { other_than: 1, message: "can't be blank" } 
+  belongs_to :state
+
 
   extend ActiveHash::Associations::ActiveRecordExtensions
-  belongs_to :state
+ 
+  validates :num_id, numericality: { other_than: 1, message: "can't be blank"} 
+  
+  validates :category_id, numericality: { other_than: 1, message: "can't be blank" }   
+  
+  validates :region_id, numericality: { other_than: 1, message: "can't be blank" } 
+  
+  validates :shipping_fee_id, numericality: { other_than: 1, message: "can't be blank" } 
+  
   validates :state_id, numericality: { other_than: 1, message: "can't be blank" } 
 
 end

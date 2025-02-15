@@ -52,8 +52,7 @@ class ItemsController < ApplicationController
   end
 
   def confirmation_item
-    unless
-    @item.user == current_user
+    unless @item.user == current_user
     redirect_to root_path
     end
   end

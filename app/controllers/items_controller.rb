@@ -1,6 +1,6 @@
 class ItemsController < ApplicationController
   before_action :set_item, only: [:edit, :show, :update, :destroy]
-  before_action :authenticate_user!, except:[:index, :show]
+  before_action :authenticate_user!, except: [:index, :show]
   before_action :confirmation_item, only: [:edit, :destroy]
 
   def index
@@ -24,8 +24,7 @@ class ItemsController < ApplicationController
   end
 
   def edit
-    unless 
-      redirect_to root_path
+    unless redirect_to root_path
     end
   end
 
@@ -38,15 +37,12 @@ class ItemsController < ApplicationController
   end
 
   def destroy
-    if 
-      @item.destroy
+    if @item.destroy
       redirect_to root_path
     else
       redirect_to root_path
     end
   end
-
-
 
   private
 
@@ -54,6 +50,7 @@ class ItemsController < ApplicationController
     params.require(:item).permit(:product_name, :category_id, :state_id, :shipping_fee_id, :region_id, :num_id, :image, :price,
                                  :explanation).merge(user_id: current_user.id)
   end
+
   def set_item
     @item = Item.find(params[:id])
   end
@@ -61,5 +58,4 @@ class ItemsController < ApplicationController
   def confirmation_item
     @item.user == current_user
   end
-
 end

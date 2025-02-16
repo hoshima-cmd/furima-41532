@@ -1,10 +1,10 @@
 class OrdersController < ApplicationController
   before_action :authenticate_user!
   before_action :set_item, only: [:index, :create]
-  before_action :sold_out, only: [:index,:create,:show]
+  before_action :sold_out, only: [:index, :create, :show]
 
   def index
-    gon.public_key = ENV['PAYJP_PUBLIC_KEY']
+    gon.public_key = ENV["PAYJP_PUBLIC_KEY"]
     @item_order = ItemOrder.new
   end
 
@@ -13,37 +13,40 @@ class OrdersController < ApplicationController
     if @item_order.valid?
       pay_item
       @item_order.save
-      redirect_to root_path
+      return redirect_to root_path
     else
-      gon.public_key = ENV['PAYJP_PUBLIC_KEY']
-      render 'index', status: :unprocessable_entity
+      gon.public_key = ENV["PAYJP_PUBLIC_KEY"]
+      render :index, status: :unprocessable_entity
     end
   end
 
   def show
   end
-  
 
   private
 
   def order_params
-    params.require(:item_order).permit(:card_information,:expiry,:code,:post_code,:prefectures,:municipality_id,:street_address,:building,:telephone_number).merge(user_id:current_user.id,item_id:params[:item_id],token: params[:token])
+    params.require(:item_order).permit(:post_code, :prefecture, :municipality_id, :street_address, :building, :telephone_number).merge(
+      user_id: current_user.id, item_id: params[:item_id], token: params[:token]
+    )
   end
 
   def pay_item
-    Payjp.api_key = ENV['PAYJP_SECRET_KEY']  # 自身のPAY.JPテスト秘密鍵を記述しましょう
+    Payjp.api_key = ENV["PAYJP_SECRET_KEY"] # 自身のPAY.JPテスト秘密鍵を記述しましょう
     Payjp::Charge.create(
-    amount: @item.price,  # 商品の値段
-    card: order_params[:token],    # カードトークン
-    currency: 'jpy'                 # 通貨の種類（日本円）
+      amount: @item.price, # 商品の値段
+      card: order_params[:token], # カードトークン
+      currency: 'jpy' # 通貨の種類（日本円）
     )
   end
-    def set_item
-      @item = Item.find(params[:item_id])
-    end
-    def sold_out
-      if @item.user_id == current_user.id || @item.order!= nil
-        redirect_to root_path
-      end 
-    end
+
+  def set_item
+    @item = Item.find(params[:item_id])
+  end
+
+  def sold_out
+    return unless @item.user_id == current_user.id || !@item.order.nil?
+
+    redirect_to root_path
+  end
 end

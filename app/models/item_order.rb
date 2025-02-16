@@ -1,7 +1,7 @@
 class ItemOrder
   include ActiveModel::Model
-  attr_accessor :user_id, :item_id, :card_information, :expiry, :code, :post_code, :prefecture, :telephone_number,
-                :municipality_id, :street_address, :building, :token
+  attr_accessor :user_id, :item_id, :post_code, :prefecture, :telephone_number,
+                :region_id, :street_address, :building, :token
 
   with_options presence: true do
     validates :user_id
@@ -12,10 +12,9 @@ class ItemOrder
   end
   validates :post_code, presence: true, format: { with: /\A\d{3}-\d{4}\z/, message: 'is invalid. Include hyphen(-)' }
   validates :telephone_number, presence: true, format: { with: /\A\d{10,11}\z/, message: 'is invalid.' }
-
+  validates :region_id, presence: true, numericality: { other_than: 1, message: "can't be blank" }
   def save
     order = Order.create(user_id:, item_id:)
-    Sell.create(order_id: order.id, post_code:, prefecture:, building:, street_address:, municipality_id:,
-                   telephone_number:)
+    Sell.create(order_id: order.id, post_code:, prefecture:, building:, street_address:, municipality_id:, telephone_number:)
   end
 end

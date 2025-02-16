@@ -79,7 +79,7 @@ ActiveRecord::Schema[7.0].define(version: 2025_02_16_054832) do
     t.string "card_information", default: "", null: false
     t.string "expiry", default: "", null: false
     t.string "code", default: "", null: false
-    t.integer "municipality_id", null: false
+    t.integer "region_id", null: false
     t.string "post_code", default: "", null: false
     t.string "prefecture", default: "", null: false
     t.string "street_address", default: "", null: false

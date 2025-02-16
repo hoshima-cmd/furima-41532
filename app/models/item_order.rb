@@ -15,6 +15,6 @@ class ItemOrder
   validates :region_id, presence: true, numericality: { other_than: 1, message: "can't be blank" }
   def save
     order = Order.create(user_id:, item_id:)
-    Sell.create(order_id: order.id, post_code:, prefecture:, building:, street_address:, municipality_id:, telephone_number:)
+    Sell.create(order_id: order.id, post_code:, prefecture:, building:, street_address:, region_id:, telephone_number:)
   end
 end

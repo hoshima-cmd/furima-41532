@@ -5,7 +5,7 @@ class CreateSells < ActiveRecord::Migration[7.0]
       t.string :card_information, null: false, default: ""
       t.string :expiry, null: false, default: ""
       t.string :code, null: false, default: ""
-      t.integer :municipality_id, null: false
+      t.integer :region_id, null: false
       t.string :post_code, null: false, default: ""
       t.string :prefecture, null: false, default: ""
       t.string :street_address, null: false, default: ""

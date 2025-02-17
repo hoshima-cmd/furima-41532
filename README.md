@@ -42,10 +42,10 @@ user# DB 設計
 | expiry             | string       | null: false |
 | code               | string       | null: false |
 | post_code          | string       | null: false |
-| prefectures        | string       | null: false |
+| prefecture         | string       | null: false |
 | municipality_id    | integer      | null: false |
 | street_address     | string       | null: false |
-| building           | string       | null: false |
+| building           | string       | ----------- |
 | telephone_number   | string       | null: false |
 | comment            | references   | null: false, foreign_key: true |
 

@@ -51,8 +51,8 @@ class ItemsController < ApplicationController
   end
 
   def confirmation_item
-    return if @item.user == current_user
+    return unless @item.user_id == current_user.id || !@item.order.nil?
 
     redirect_to root_path
+    end
   end
-end

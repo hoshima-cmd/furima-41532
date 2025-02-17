@@ -51,9 +51,6 @@ ActiveRecord::Schema[7.0].define(version: 2025_02_16_054832) do
     t.bigint "user_id", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.string "title"
-    t.text "text"
-    t.integer "genre_id"
     t.index ["user_id"], name: "index_items_on_user_id"
   end
 
@@ -83,19 +80,19 @@ ActiveRecord::Schema[7.0].define(version: 2025_02_16_054832) do
   end
 
   create_table "users", charset: "utf8mb3", force: :cascade do |t|
+    t.string "nickname", default: "", null: false
     t.string "email", default: "", null: false
     t.string "encrypted_password", default: "", null: false
+    t.string "last_name", default: "", null: false
+    t.string "first_name", default: "", null: false
+    t.string "last_name_kana", default: "", null: false
+    t.string "first_name_kana", default: "", null: false
+    t.date "birthday", null: false
     t.string "reset_password_token"
     t.datetime "reset_password_sent_at"
     t.datetime "remember_created_at"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.string "nickname"
-    t.date "birthday"
-    t.string "last_name"
-    t.string "first_name"
-    t.string "first_name_kana"
-    t.string "Last_name_kana"
     t.index ["email"], name: "index_users_on_email", unique: true
     t.index ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true
   end

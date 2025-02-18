@@ -1,7 +1,6 @@
 class ItemsController < ApplicationController
   before_action :set_item, only: [:edit, :show, :update, :destroy]
   before_action :authenticate_user!, except: [:index, :show]
-  before_action :confirmation_item, only: [:edit, :destroy]
 
   def index
     @items = Item.includes(:user).order('created_at DESC')
@@ -24,6 +23,11 @@ class ItemsController < ApplicationController
   end
 
   def edit
+    if @item.user_id != current_user.id || @item.order!=nil
+      redirect_to root_path
+    else
+      render 'edit', status: :unprocessable_entity
+    end
   end
 
   def update
@@ -35,8 +39,12 @@ class ItemsController < ApplicationController
   end
 
   def destroy
-    @item.destroy
-    redirect_to root_path
+    if user_signed_in? && @item.user == current_user
+      @item.destroy
+      redirect_to root_path
+    else
+      redirect_to root_path
+    end
   end
 
   private
@@ -49,10 +57,5 @@ class ItemsController < ApplicationController
   def set_item
     @item = Item.find(params[:id])
   end
+end
 
-  def confirmation_item
-    return unless @item.user_id == current_user.id || !@item.order.nil?
-
-    redirect_to root_path
-    end
-  end
